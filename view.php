@@ -44,6 +44,7 @@ $stats = $statement3->fetch();
             </ul>
         </nav>
         <a class="cta" href="admin.php"><button>Admin</button></a>
+        <a class="cta" href="edit.php?id=<?= $row['player_id'] ?>"><button>Edit</button></a>
     </header>
     <div id="container">
         <div id="player">
