@@ -1,0 +1,156 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #222831;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+li,
+p,
+a,
+button {
+  font-weight: 800;
+  font-size: 18px;
+  color: #76abae;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button {
+  font-weight: 600;
+  font-size: 13px;
+  padding: 9px 10px;
+  border-radius: 50px;
+  background-color: rgba(0, 136, 169, 1);
+  color: black;
+  border: none;
+  transition: all 0.3s ease 0s;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 10%;
+}
+
+.nav_links {
+  list-style: none;
+}
+
+.nav_links li {
+  display: inline-block;
+  padding: 0 20px;
+}
+
+.nav_links li a {
+  transition: all 0.3s ease 0s;
+}
+
+.nav_links li a:hover {
+  color: #eeeeee;
+}
+
+button:hover {
+  background-color: rgba(0, 136, 169, 0.8);
+}
+
+.search {
+  width: max-content;
+  display: flex;
+  align-items: center;
+  padding: 14px;
+  border-radius: 24px;
+  background: #f6f6f6;
+  margin: auto;
+}
+
+.search-input {
+  font-size: 16px;
+  font-family: "Inter", sans-serif;
+  color: #333333;
+  margin-left: 14px;
+  outline: none;
+  border: none;
+  background: transparent;
+  width: 300px;
+}
+
+.active {
+  text-decoration: underline;
+}
+
+.backhome {
+  color: blue;
+}
+
+#wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 800px;
+  height: 350px;
+  border: 1px solid #76abae;
+  margin: auto;
+}
+
+#fullname,
+#position,
+#shoots,
+#playstyle {
+  width: 95%;
+  padding: 8px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#create {
+  font-weight: 700;
+  width: 20%;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  background-color: #76abae;
+}
+
+label {
+  color: #76abae;
+  font-weight: 700;
+}
+
+#player {
+  margin: auto;
+  display: flex;
+  width: 600px;
+  height: 200px;
+  margin-top: 50px;
+  margin-bottom: 100px;
+  padding: 5px;
+  flex-direction: column;
+}
+
+#player h2 a {
+  font-size: 25px;
+}
+
+#player p {
+  font-size: 17px;
+  color: #b6bbc4;
+  margin-top: 10px;
+}
