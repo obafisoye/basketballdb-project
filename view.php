@@ -8,19 +8,16 @@ $query = "SELECT * FROM player WHERE player_id = :id LIMIT 1";
 $statement = $db->prepare($query);
 $statement->bindValue(':id', $id);
 $statement->execute();
-$row = $statement->fetch();
+$player = $statement->fetch();
 
-$query2 = "SELECT * FROM history WHERE player_id = :id2";
+$query2 = "SELECT h.accolades, h.team, h.season, s.games, s.ppg, s.rpg, s.apg, s.fg_per, s.3_per, s.ft_per
+FROM history h JOIN stats s ON h.stats_id = s.stats_id WHERE player_id = :id2";
+
 $statement2 = $db->prepare($query2);
 $statement2->bindValue(':id2', $id);
 $statement2->execute();
-$history = $statement2->fetch();
 
-$query3 = "SELECT * FROM stats WHERE stats_id = :id3";
-$statement3 = $db->prepare($query3);
-$statement3->bindValue(':id3', $history['stats_id']);
-$statement3->execute();
-$stats = $statement3->fetch();
+
 ?>
 
 <!DOCTYPE html>
@@ -44,23 +41,32 @@ $stats = $statement3->fetch();
             </ul>
         </nav>
         <a class="cta" href="admin.php"><button>Admin</button></a>
-        <a class="cta" href="edit.php?id=<?= $row['player_id'] ?>"><button>Edit</button></a>
+        <a class="cta" href="edit.php?id=<?= $player['player_id'] ?>"><button>Edit</button></a>
     </header>
     <div id="container">
         <div id="player">
             <h2>
-                <a><?= $row['full_name'] ?></a>
+                <a><?= $player['full_name'] ?></a>
             </h2>
-            <p>Position: <?= $row['position'] ?></p>
-            <p>Shoots: <?= $row['shoots'] ?></p>
-            <p>Playstyle: <?= $row['position'] ?></p>
+            <p>Position: <?= $player['position'] ?></p>
+            <p>Shoots: <?= $player['shoots'] ?></p>
+            <p>Playstyle: <?= $player['position'] ?></p>
         </div>
-        <div id="history">
-            <p><?= $history['accolades'] ?></p>
-        </div>
-        <div id="stats">
-            <p><?= $stats['games'] ?></p>
-        </div>
+        <?php while ($row = $statement2->fetch()) : ?>
+            <div id="history">
+                <h4><?= $row['season'] ?></h4>
+                <p><?= $row['team'] ?></p>
+                <p><?= $row['accolades'] ?></p>
+            </div>
+            <div id="stats">
+                <p>Games Played:<?= $row['games'] ?></p>
+                <p>Points Per Game:<?= $row['ppg'] ?></p>
+                <p>Rebounds Per Game:<?= $row['rpg'] ?></p>
+                <p>Assists Per Game:<?= $row['apg'] ?></p>
+                <p>3 Point Percentage:<?= $row['3_per'] ?></p>
+                <p>Free Throw Percentage:<?= $row['ft_per'] ?></p>
+            </div>
+        <?php endwhile; ?>
     </div>
 
 </body>

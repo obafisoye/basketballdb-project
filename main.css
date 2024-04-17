@@ -141,6 +141,7 @@ label {
   height: 200px;
   margin-top: 50px;
   margin-bottom: 100px;
+  border: 1px solid black;
   padding: 5px;
   flex-direction: column;
 }
@@ -153,4 +154,19 @@ label {
   font-size: 17px;
   color: #b6bbc4;
   margin-top: 10px;
+}
+
+#history {
+  width: 600px;
+  height: 100px;
+  display: flex;
+  border: 1px solid black;
+  flex-direction: column;
+}
+
+#stats {
+  display: flex;
+  border: 1px solid white;
+  border: 1px solid black;
+  flex-direction: column;
 }

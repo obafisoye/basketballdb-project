@@ -61,7 +61,7 @@ if ($_POST) {
             <nav>
                 <ul class="nav_links">
                     <li><a href="index.php">Home</a></li>
-                    <li><a href="#">Players</a></li>
+                    <li><a href="players.php">Players</a></li>
                 </ul>
             </nav>
         </header>
