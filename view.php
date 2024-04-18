@@ -17,6 +17,9 @@ $statement2 = $db->prepare($query2);
 $statement2->bindValue(':id2', $id);
 $statement2->execute();
 
+$statement3 = $db->prepare($query2);
+$statement3->bindValue(':id2', $id);
+$statement3->execute();
 
 ?>
 
@@ -52,21 +55,57 @@ $statement2->execute();
             <p>Shoots: <?= $player['shoots'] ?></p>
             <p>Playstyle: <?= $player['position'] ?></p>
         </div>
-        <?php while ($row = $statement2->fetch()) : ?>
-            <div id="history">
-                <h4><?= $row['season'] ?></h4>
-                <p><?= $row['team'] ?></p>
-                <p><?= $row['accolades'] ?></p>
-            </div>
+        <div id="history">
+            <?php while ($accolades = $statement3->fetch()) : ?>
+                <p>In the <?= $accolades['season'] ?> season, <?= $player['full_name'] ?> was awarded with <?= $accolades['accolades'] ?>.</p>
+            <?php endwhile; ?>
+        </div>
+        <div id="stats">
+            <table id="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Team</th>
+                        <th>Games</th>
+                        <th>PPG</th>
+                        <th>RPG</th>
+                        <th>APG</th>
+                        <th>FG%</th>
+                        <th>3PT%</th>
+                        <th>FT%</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($row = $statement2->fetch()) : ?>
+                        <tr>
+                            <td><?= $row['season'] ?></td>
+                            <td><?= $row['team'] ?></td>
+                            <td><?= $row['games'] ?></td>
+                            <td><?= $row['ppg'] ?></td>
+                            <td><?= $row['rpg'] ?></td>
+                            <td><?= $row['apg'] ?></td>
+                            <td><?= $row['fg_per'] ?></td>
+                            <td><?= $row['3_per'] ?></td>
+                            <td><?= $row['ft_per'] ?></td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+
+
+
+        <!--
+
             <div id="stats">
-                <p>Games Played:<?= $row['games'] ?></p>
+                <p>Games Played: <?= $row['games'] ?></p>
                 <p>Points Per Game:<?= $row['ppg'] ?></p>
                 <p>Rebounds Per Game:<?= $row['rpg'] ?></p>
                 <p>Assists Per Game:<?= $row['apg'] ?></p>
                 <p>3 Point Percentage:<?= $row['3_per'] ?></p>
                 <p>Free Throw Percentage:<?= $row['ft_per'] ?></p>
             </div>
-        <?php endwhile; ?>
+        -->
     </div>
 
 </body>

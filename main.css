@@ -138,10 +138,9 @@ label {
   margin: auto;
   display: flex;
   width: 600px;
-  height: 200px;
+  height: 150px;
   margin-top: 50px;
-  margin-bottom: 100px;
-  border: 1px solid black;
+  margin-bottom: 30px;
   padding: 5px;
   flex-direction: column;
 }
@@ -157,18 +156,24 @@ label {
 }
 
 #history {
-  width: 600px;
-  height: 100px;
-  display: flex;
-  border: 1px solid black;
-  flex-direction: column;
+  margin: auto;
+  width: 1000px;
+  height: 120px;
+  margin-bottom: 15px;
+}
+
+#history p {
+  display: inline-block;
+  margin-top: 13px;
+  color: #b6bbc4;
 }
 
 #stats {
+  margin: auto;
+  width: 850px;
   display: flex;
-  border: 1px solid white;
-  border: 1px solid black;
   flex-direction: column;
+  margin-bottom: 100px;
 }
 
 #selectOption {
@@ -191,4 +196,45 @@ label {
 
 #sort p {
   font-size: 15px;
+}
+
+#container {
+  border: 1px solid black;
+  width: 1200px;
+}
+
+#table {
+  border-collapse: collapse;
+  margin: 25px;
+  font-size: 18px;
+  font-weight: 700;
+  min-width: 400px;
+  color: #b6bbc4;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+}
+
+#table thead tr {
+  background-color: #76abae;
+  color: #222831;
+  font-weight: 900;
+  font-size: 20px;
+}
+
+#table th,
+#table td {
+  padding: 11px 12px;
+}
+
+#table tbody tr {
+  border-bottom: 1px solid #dddd;
+}
+
+#table tbody tr:last-of-type {
+  border-bottom: 2px solid #76abae;
+}
+
+#table tbody tr:hover {
+  font-weight: 900;
+  color: #76abae;
 }
