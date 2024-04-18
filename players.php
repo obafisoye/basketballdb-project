@@ -2,9 +2,15 @@
 
 require('connect.php');
 
-$order = $_POST['option'];
-echo $order;
-$query = "SELECT * FROM player ORDER BY full_name ASC";
+$sort = "full_name";
+
+if ($_POST) {
+    if (isset($_POST['option']) && !empty($_POST['option'])) {
+        $sort = htmlspecialchars($_POST['option']);
+    }
+}
+
+$query = "SELECT * FROM player ORDER BY $sort ASC";
 
 $statement = $db->prepare($query);
 
@@ -36,8 +42,8 @@ $statement->execute();
     </header>
     <div id="sort">
         <p>Sorting</p>
-        <form method="post" id="form-sort">
-            <select id="selectOption" name="option">
+        <form method="post" id="form-sort" action="players.php">
+            <select id="selectOption" name="option" onchange="this.form.submit();">
                 <option value="">Select</option>
                 <option value=" full_name">Full Name</option>
                 <option value="shoots">Shoots</option>
