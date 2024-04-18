@@ -80,7 +80,6 @@ if ($_POST) {
                 <input name="playstyle" id="playstyle" required placeholder="eg. Smooth, Fundamental ">
 
                 <input id="create" type="submit" name="command" value="Create">
-                </ul>
             </form>
         </div>
     <?php else : ?>

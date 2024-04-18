@@ -170,3 +170,25 @@ label {
   border: 1px solid black;
   flex-direction: column;
 }
+
+#selectOption {
+  margin-top: 5px;
+  border: none;
+  appearance: none;
+  width: 120px;
+  height: 20px;
+  background-color: rgba(0, 136, 169, 1);
+  color: white;
+  font-size: 13px;
+  padding: 0 30px 0 15px;
+}
+
+#sort {
+  position: absolute;
+  left: 1770px;
+  top: 17px;
+}
+
+#sort p {
+  font-size: 15px;
+}
