@@ -138,6 +138,17 @@ label {
   margin: auto;
   display: flex;
   width: 600px;
+  height: 200px;
+  margin-top: 50px;
+  margin-bottom: 100px;
+  padding: 5px;
+  flex-direction: column;
+}
+
+#player-view {
+  margin: auto;
+  display: flex;
+  width: 600px;
   height: 150px;
   margin-top: 50px;
   margin-bottom: 30px;
@@ -146,10 +157,20 @@ label {
 }
 
 #player h2 a {
+  font-size: 37px;
+}
+
+#player-view h2 a {
   font-size: 25px;
 }
 
 #player p {
+  font-size: 22px;
+  color: #b6bbc4;
+  margin-top: 10px;
+}
+
+#player-view p {
   font-size: 17px;
   color: #b6bbc4;
   margin-top: 10px;
@@ -198,7 +219,7 @@ label {
   font-size: 15px;
 }
 
-#container {
+#container-view {
   border: 1px solid black;
   width: 1200px;
 }

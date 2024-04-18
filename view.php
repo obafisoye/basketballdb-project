@@ -46,8 +46,8 @@ $statement3->execute();
         <a class="cta" href="admin.php"><button>Admin</button></a>
         <a class="cta" href="edit.php?id=<?= $player['player_id'] ?>"><button>Edit</button></a>
     </header>
-    <div id="container">
-        <div id="player">
+    <div id="container-view">
+        <div id="player-view">
             <h2>
                 <a><?= $player['full_name'] ?></a>
             </h2>
