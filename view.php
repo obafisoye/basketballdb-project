@@ -92,11 +92,7 @@ $statement3->execute();
                 </tbody>
             </table>
         </div>
-
-
-
         <!--
-
             <div id="stats">
                 <p>Games Played: <?= $row['games'] ?></p>
                 <p>Points Per Game:<?= $row['ppg'] ?></p>
@@ -107,7 +103,6 @@ $statement3->execute();
             </div>
         -->
     </div>
-
 </body>
 
 </html>
