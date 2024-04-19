@@ -55,16 +55,16 @@ if ($_POST) {
 </head>
 
 <body>
+    <header>
+        <p>Basketball Player Database</p>
+        <nav>
+            <ul class="nav_links">
+                <li><a href="index.php">Home</a></li>
+                <li><a href="players.php">Players</a></li>
+            </ul>
+        </nav>
+    </header>
     <?php if ($validated == true) : ?>
-        <header>
-            <p>Basketball Player Database</p>
-            <nav>
-                <ul class="nav_links">
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="players.php">Players</a></li>
-                </ul>
-            </nav>
-        </header>
         <div id="wrapper">
             <form action="admin.php" method="post">
                 <label for="fullname">Full Name:</label>
