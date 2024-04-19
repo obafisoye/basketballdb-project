@@ -129,6 +129,11 @@ button:hover {
   background-color: #76abae;
 }
 
+#create:hover {
+  outline: 0;
+  background-color: rgba(0, 136, 169, 0.8);
+}
+
 label {
   color: #76abae;
   font-weight: 700;
@@ -161,7 +166,7 @@ label {
 }
 
 #player-view h2 a {
-  font-size: 25px;
+  font-size: 38px;
 }
 
 #player p {
@@ -221,7 +226,8 @@ label {
 
 #container-view {
   border: 1px solid black;
-  width: 1200px;
+  width: 100%;
+  margin-top: 30px;
 }
 
 #table {
@@ -258,4 +264,47 @@ label {
 #table tbody tr:hover {
   font-weight: 900;
   color: #76abae;
+}
+
+#comment-section {
+  margin: auto;
+  border: 1px solid black;
+  width: 900px;
+}
+
+#comment-form-div {
+  margin: auto;
+  border: 1px solid black;
+  width: 500px;
+  height: 230px;
+}
+#comment-form-div p {
+  font-size: 23px;
+  margin-bottom: 15px;
+}
+
+#comment-section input {
+  width: 90%;
+  height: 30px;
+  padding: 0 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid;
+}
+
+#comment-section input:focus {
+  outline: 0;
+}
+
+#comment-section textarea {
+  width: 90%;
+  height: 80px;
+  padding: 7px 10px;
+  border-radius: 5px;
+  border: 1px solid;
+  margin-bottom: 5px;
+}
+
+#comment-section textarea:focus {
+  outline: 0;
 }

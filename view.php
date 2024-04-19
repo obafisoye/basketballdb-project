@@ -21,6 +21,33 @@ $statement3 = $db->prepare($query2);
 $statement3->bindValue(':id2', $id);
 $statement3->execute();
 
+$validated = true;
+
+if ($_POST) {
+    if (empty($_POST['name']) || empty($_POST['comment']) || empty($_POST['id'])) {
+        $validated = false;
+    } else {
+        $name = htmlspecialchars($_POST['name']);
+        $comment = htmlspecialchars($_POST['comment']);
+        $playerid = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+
+        if ($name == false || $comment == false || $playerid == false) {
+            $validated = false;
+        } else {
+            $query3 = "INSERT INTO comment (name, comment, player_id) VALUES (:name, :comment, :id3)";
+            $statement4 = $db->prepare($query3);
+
+            $statement4->bindValue(':name', $name);
+            $statement4->bindValue(':comment', $comment);
+            $statement4->bindValue(':id3', $playerid);
+            $statement4->execute();
+
+            header("Location: view.php?id={$playerid}");
+            exit;
+        }
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -46,63 +73,74 @@ $statement3->execute();
         <a class="cta" href="admin.php"><button>Admin</button></a>
         <a class="cta" href="edit.php?id=<?= $player['player_id'] ?>"><button>Edit</button></a>
     </header>
-    <div id="container-view">
-        <div id="player-view">
-            <h2>
-                <a><?= $player['full_name'] ?></a>
-            </h2>
-            <p>Position: <?= $player['position'] ?></p>
-            <p>Shoots: <?= $player['shoots'] ?></p>
-            <p>Playstyle: <?= $player['position'] ?></p>
-        </div>
-        <div id="history">
-            <?php while ($accolades = $statement3->fetch()) : ?>
-                <p>In the <?= $accolades['season'] ?> season, <?= $player['full_name'] ?> was awarded with <?= $accolades['accolades'] ?>.</p>
-            <?php endwhile; ?>
-        </div>
-        <div id="stats">
-            <table id="table">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Team</th>
-                        <th>Games</th>
-                        <th>PPG</th>
-                        <th>RPG</th>
-                        <th>APG</th>
-                        <th>FG%</th>
-                        <th>3PT%</th>
-                        <th>FT%</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php while ($row = $statement2->fetch()) : ?>
-                        <tr>
-                            <td><?= $row['season'] ?></td>
-                            <td><?= $row['team'] ?></td>
-                            <td><?= $row['games'] ?></td>
-                            <td><?= $row['ppg'] ?></td>
-                            <td><?= $row['rpg'] ?></td>
-                            <td><?= $row['apg'] ?></td>
-                            <td><?= $row['fg_per'] ?></td>
-                            <td><?= $row['3_per'] ?></td>
-                            <td><?= $row['ft_per'] ?></td>
-                        </tr>
-                    <?php endwhile; ?>
-                </tbody>
-            </table>
-        </div>
-        <!--
-            <div id="stats">
-                <p>Games Played: <?= $row['games'] ?></p>
-                <p>Points Per Game:<?= $row['ppg'] ?></p>
-                <p>Rebounds Per Game:<?= $row['rpg'] ?></p>
-                <p>Assists Per Game:<?= $row['apg'] ?></p>
-                <p>3 Point Percentage:<?= $row['3_per'] ?></p>
-                <p>Free Throw Percentage:<?= $row['ft_per'] ?></p>
+    <?php if ($validated == true) : ?>
+        <div id="container-view">
+            <div id="player-view">
+                <h2>
+                    <a><?= $player['full_name'] ?></a>
+                </h2>
+                <p>Position: <?= $player['position'] ?></p>
+                <p>Shoots: <?= $player['shoots'] ?></p>
+                <p>Playstyle: <?= $player['position'] ?></p>
             </div>
-        -->
-    </div>
+            <div id="history">
+                <?php while ($accolades = $statement3->fetch()) : ?>
+                    <p>In the <?= $accolades['season'] ?> season, <?= $player['full_name'] ?> was awarded with <?= $accolades['accolades'] ?>.</p>
+                <?php endwhile; ?>
+            </div>
+            <div id="stats">
+                <table id="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Team</th>
+                            <th>Games</th>
+                            <th>PPG</th>
+                            <th>RPG</th>
+                            <th>APG</th>
+                            <th>FG%</th>
+                            <th>3PT%</th>
+                            <th>FT%</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($row = $statement2->fetch()) : ?>
+                            <tr>
+                                <td><?= $row['season'] ?></td>
+                                <td><?= $row['team'] ?></td>
+                                <td><?= $row['games'] ?></td>
+                                <td><?= $row['ppg'] ?></td>
+                                <td><?= $row['rpg'] ?></td>
+                                <td><?= $row['apg'] ?></td>
+                                <td><?= $row['fg_per'] ?></td>
+                                <td><?= $row['3_per'] ?></td>
+                                <td><?= $row['ft_per'] ?></td>
+                            </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
+            </div>
+            <div id="comment-section">
+
+                <div id="comment-form-div">
+                    <p>Join the discussion</p>
+                    <form action="view.php" id="comment-form" method="post">
+                        <input type="hidden" name="id" value="<?= $id ?>">
+
+                        <input name="name" id="name" type="text" required placeholder="Username">
+
+                        <textarea id="comment" name="comment" rows="3" cols="50"></textarea>
+
+                        <button type="submit" id="create" name="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <?php else : ?>
+        <br><br>
+        <h1>An error occured while processing your post</h1>
+        <a class="backhome" href="players.php">Retry</a>
+    <?php endif ?>
 </body>
 
 </html>
