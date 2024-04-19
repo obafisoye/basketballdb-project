@@ -83,6 +83,7 @@ if ($_POST) {
             </form>
         </div>
     <?php else : ?>
+        <br><br>
         <h1>An error occured while processing your post</h1>
         <a class="backhome" href="admin.php">Retry</a>
     <?php endif ?>
