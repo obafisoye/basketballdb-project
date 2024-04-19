@@ -44,10 +44,10 @@ $statement->execute();
         <p>Sorting</p>
         <form method="post" id="form-sort" action="players.php">
             <select id="selectOption" name="option" onchange="this.form.submit();">
-                <option value="">Select</option>
-                <option value=" full_name">Full Name</option>
-                <option value="shoots">Shoots</option>
-                <option value="position">Position</option>
+                <option value="" <?php if ($sort === '') echo 'selected'; ?>>Select</option>
+                <option value="full_name" <?php if ($sort === 'full_name') echo 'selected'; ?>>Full Name</option>
+                <option value="shoots" <?php if ($sort === 'shoots') echo 'selected'; ?>>Shoots</option>
+                <option value="position" <?php if ($sort === 'position') echo 'selected'; ?>>Position</option>
             </select>
         </form>
 
