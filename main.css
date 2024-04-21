@@ -268,13 +268,12 @@ label {
 
 #comment-section {
   margin: auto;
-  border: 1px solid black;
   width: 900px;
 }
 
 #comment-form-div {
   margin: auto;
-  border: 1px solid black;
+  margin-top: 50px;
   width: 500px;
   height: 230px;
 }
@@ -307,4 +306,15 @@ label {
 
 #comment-section textarea:focus {
   outline: 0;
+}
+
+.comment-block {
+  margin: auto;
+  padding: 5px;
+  width: 40%;
+  margin-bottom: 10px;
+}
+
+.comment-block span {
+  color: antiquewhite;
 }

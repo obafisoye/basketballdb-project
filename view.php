@@ -21,6 +21,12 @@ $statement3 = $db->prepare($query2);
 $statement3->bindValue(':id2', $id);
 $statement3->execute();
 
+$query4 = "SELECT * FROM comment WHERE player_id = :id4";
+$statement5 = $db->prepare($query4);
+$statement5->bindValue(':id4', $id);
+$statement5->execute();
+
+
 $validated = true;
 
 if ($_POST) {
@@ -121,6 +127,14 @@ if ($_POST) {
                 </table>
             </div>
             <div id="comment-section">
+                <?php if ($statement5->rowCount() > 0) : ?>
+                    <?php while ($comment = $statement5->fetch()) : ?>
+                        <div class="comment-block">
+                            <span><?= $comment['name'] ?></span>
+                            <p><?= $comment['comment'] ?></p>
+                        </div>
+                    <?php endwhile; ?>
+                <?php endif ?>
 
                 <div id="comment-form-div">
                     <p>Join the discussion</p>
