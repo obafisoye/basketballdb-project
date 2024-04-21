@@ -21,7 +21,7 @@ $statement3 = $db->prepare($query2);
 $statement3->bindValue(':id2', $id);
 $statement3->execute();
 
-$query4 = "SELECT * FROM comment WHERE player_id = :id4";
+$query4 = "SELECT * FROM comment WHERE player_id = :id4 ORDER BY created_at DESC";
 $statement5 = $db->prepare($query4);
 $statement5->bindValue(':id4', $id);
 $statement5->execute();
