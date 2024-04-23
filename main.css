@@ -317,3 +317,8 @@ label {
 .comment-block span {
   color: antiquewhite;
 }
+
+.player-image {
+  width: 120px;
+  height: auto;
+}

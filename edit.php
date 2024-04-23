@@ -85,7 +85,7 @@ if ($_POST) {
                 $statement->bindValue(':id', $player_id);
                 $statement->execute();
 
-                header("Location: players.php");
+                header("Location: view.php?id={$id}");
                 exit;
             } else {
                 $validated = false;
@@ -124,7 +124,7 @@ if ($_POST) {
                     $statement->bindValue(':id', $id);
                     $statement->execute();
 
-                    header("Location: players.php");
+                    header("Location: view.php?id={$id}");
                     exit;
                 }
             }

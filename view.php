@@ -4,12 +4,14 @@ require('connect.php');
 
 $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
+//player
 $query = "SELECT * FROM player WHERE player_id = :id LIMIT 1";
 $statement = $db->prepare($query);
 $statement->bindValue(':id', $id);
 $statement->execute();
 $player = $statement->fetch();
 
+// stats
 $query2 = "SELECT h.accolades, h.team, h.season, s.games, s.ppg, s.rpg, s.apg, s.fg_per, s.3_per, s.ft_per
 FROM history h JOIN stats s ON h.stats_id = s.stats_id WHERE player_id = :id2";
 
@@ -21,10 +23,36 @@ $statement3 = $db->prepare($query2);
 $statement3->bindValue(':id2', $id);
 $statement3->execute();
 
+// comment
 $query4 = "SELECT * FROM comment WHERE player_id = :id4 ORDER BY created_at DESC";
 $statement5 = $db->prepare($query4);
 $statement5->bindValue(':id4', $id);
 $statement5->execute();
+
+// image
+$query5 = "SELECT filename FROM image WHERE player_id = :id5";
+$statement6 = $db->prepare($query5);
+$statement6->bindValue(':id5', $id);
+$statement6->execute();
+$image = $statement6->fetch();
+
+
+if ($image) {
+    $path = $image['filename'];
+
+    if ($path) {
+        $upload_pos = strpos($path, 'uploads');
+
+        if ($uploads_pos = false) {
+            $local_path = "";
+            echo "Error: 'uploads' directory not found in the path.";
+        } else {
+            $local_path = substr($path, $upload_pos);
+        }
+    }
+}
+
+
 
 
 $validated = true;
@@ -81,10 +109,18 @@ if ($_POST) {
     </header>
     <?php if ($validated == true) : ?>
         <div id="container-view">
+
+            <?php if ($image) : ?>
+                <img src="<?= $local_path ?>" alt="Picture of <?= $player['full_name'] ?>" class="player-image">
+            <?php endif ?>
+
             <div id="player-view">
+
+
                 <h2>
                     <a><?= $player['full_name'] ?></a>
                 </h2>
+
                 <p>Position: <?= $player['position'] ?></p>
                 <p>Shoots: <?= $player['shoots'] ?></p>
                 <p>Playstyle: <?= $player['position'] ?></p>
