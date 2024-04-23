@@ -136,7 +136,7 @@ if ($_POST) {
 if (isset($_POST['delete']) && isset($_POST['id'])) {
     $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-    $query = "DELETE FROM posts WHERE player_id = :id";
+    $query = "DELETE FROM player WHERE player_id = :id";
     $statement = $db->prepare($query);
     $statement->bindValue(':id', $id);
 
