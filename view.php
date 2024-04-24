@@ -52,35 +52,53 @@ if ($image) {
     }
 }
 
-
-
-
 $validated = true;
 
+session_start();
+
+if (!isset($_SESSION['captcha'])) {
+    $_SESSION['captcha'] = rand(9999, 1000);
+}
+
 if ($_POST) {
-    if (empty($_POST['name']) || empty($_POST['comment']) || empty($_POST['id'])) {
+    if (empty($_POST['name']) || empty($_POST['comment']) || empty($_POST['id']) || empty($_POST['captcha'])) {
         $validated = false;
     } else {
-        $name = htmlspecialchars($_POST['name']);
-        $comment = htmlspecialchars($_POST['comment']);
-        $playerid = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $userCaptcha = trim($_POST['captcha']);
+        $captcha = isset($_SESSION['captcha']) ? trim($_SESSION['captcha']) : '';
 
-        if ($name == false || $comment == false || $playerid == false) {
-            $validated = false;
+        if ($userCaptcha == $captcha) {
+            $name = htmlspecialchars($_POST['name']);
+            $comment = htmlspecialchars($_POST['comment']);
+            $playerid = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+
+            if ($name == false || $comment == false || $playerid == false) {
+                $validated = false;
+            } else {
+                $query3 = "INSERT INTO comment (name, comment, player_id) VALUES (:name, :comment, :id3)";
+                $statement4 = $db->prepare($query3);
+
+                $statement4->bindValue(':name', $name);
+                $statement4->bindValue(':comment', $comment);
+                $statement4->bindValue(':id3', $playerid);
+                $statement4->execute();
+
+                header("Location: view.php?id={$playerid}");
+                session_destroy();
+                exit;
+            }
         } else {
-            $query3 = "INSERT INTO comment (name, comment, player_id) VALUES (:name, :comment, :id3)";
-            $statement4 = $db->prepare($query3);
-
-            $statement4->bindValue(':name', $name);
-            $statement4->bindValue(':comment', $comment);
-            $statement4->bindValue(':id3', $playerid);
-            $statement4->execute();
-
-            header("Location: view.php?id={$playerid}");
-            exit;
+            $validated = false;
+            echo $userCaptcha;
+            echo '<br>';
+            echo $captcha;
+            session_destroy();
         }
     }
 }
+
+
+
 
 ?>
 
@@ -180,6 +198,13 @@ if ($_POST) {
                         <input name="name" id="name" type="text" required placeholder="Username">
 
                         <textarea id="comment" name="comment" rows="3" cols="50"></textarea>
+
+                        <input type="text" name="captcha" id="captcha" placeholder="Enter Captcha" required>
+
+                        <div class="captcha">
+                            <label for="captcha">Captcha Code</label>
+                            <p><?= $_SESSION['captcha'] ?></p>
+                        </div>
 
                         <button type="submit" id="create" name="submit">Submit</button>
                     </form>

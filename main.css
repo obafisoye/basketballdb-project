@@ -267,7 +267,8 @@ label {
 
 #comment-section {
   margin: auto;
-  width: 900px;
+  position: relative;
+  width: 1100px;
 }
 
 #comment-form-div {
@@ -321,4 +322,26 @@ label {
 .player-image {
   width: 120px;
   height: auto;
+}
+
+.captcha {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 200px;
+  left: 830px;
+  bottom: 40px;
+}
+
+.captcha p {
+  width: 100%;
+  color: black;
+  background: yellow;
+  text-align: center;
+  font-size: 24px;
+}
+
+.captcha label {
+  margin-bottom: 5px;
 }
