@@ -2,12 +2,21 @@
 
 require('connect.php');
 
+$statement = null;
 
-$query = "SELECT * FROM player";
+if ($_GET) {
+    if (isset($_GET['playername'])) {
+        $searchQuery = htmlspecialchars($_GET['playername'], ENT_QUOTES, 'UTF-8');
 
-$statement = $db->prepare($query);
+        $query = "SELECT * FROM player WHERE full_name LIKE :searchQuery";
+        $statement = $db->prepare($query);
 
-$statement->execute();
+        $searchParam = '%' . $searchQuery . '%';
+        $statement->bindParam(':searchQuery', $searchParam);
+        $statement->execute();
+    }
+}
+
 
 ?>
 
@@ -34,12 +43,23 @@ $statement->execute();
         </nav>
         <a class="cta" href="admin.php"><button>Admin</button></a>
     </header>
-    <form>
+    <form method="get">
         <div class="search">
-            <span class="search-icon material-symbols-outlined">search</span>
-            <input type="search" class="search-input" placeholder="Search for a player">
+            <button class="search-icon material-symbols-outlined" type="submit">search</button>
+            <input type="text" class="search-input" placeholder="Search for a player by name" name="playername" required>
         </div>
     </form>
+    <?php if ($statement && $statement->rowCount() > 0) : ?>
+        <?php while ($row = $statement->fetch()) : ?>
+            <div id="player-searched">
+                <h2><a href="view.php?id=<?= $row['player_id'] ?>"><?= $row['full_name'] ?></a></h2>
+            </div>
+
+        <?php endwhile; ?>
+    <?php else : ?>
+        <br><br>
+        <p>No players found.</p>
+    <?php endif ?>
 </body>
 
 </html>
