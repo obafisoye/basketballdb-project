@@ -89,10 +89,13 @@ if ($_POST) {
             }
         } else {
             $validated = false;
-            echo $userCaptcha;
-            echo '<br>';
-            echo $captcha;
+            $sname = $_POST['name'];
+            $scomment = $_POST['comment'];
+            $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+
+            header("Location: view.php?id={$id}&scomment={$scomment}&sname={$sname}");
             session_destroy();
+            exit;
         }
     }
 }
@@ -195,9 +198,9 @@ if ($_POST) {
                     <form action="view.php" id="comment-form" method="post">
                         <input type="hidden" name="id" value="<?= $id ?>">
 
-                        <input name="name" id="name" type="text" required placeholder="Username">
+                        <input name="name" id="name" type="text" required placeholder="Username" value="<?= isset($_GET['sname']) ? htmlspecialchars($_GET['sname']) : ''; ?>">
 
-                        <textarea id="comment" name="comment" rows="3" cols="50"></textarea>
+                        <textarea id=" comment" name="comment" rows="3" cols="50"><?= isset($_GET['scomment']) ? htmlspecialchars($_GET['scomment']) : '';  ?></textarea>
 
                         <input type="text" name="captcha" id="captcha" placeholder="Enter Captcha" required>
 
