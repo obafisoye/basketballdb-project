@@ -206,7 +206,7 @@ if ($_POST) {
 
                         <div class="captcha">
                             <label for="captcha">Captcha Code</label>
-                            <p><?= $_SESSION['captcha'] ?></p>
+                            <img src="captcha.php" alt="CAPTCHA">
                         </div>
 
                         <button type="submit" id="create" name="submit">Submit</button>
