@@ -54,7 +54,7 @@ $statement->execute();
     </div>
     <div id="container">
         <?php while ($row = $statement->fetch()) : ?>
-            <div id="player">
+            <div class="player">
                 <h2>
                     <a href="view.php?id=<?= $row['player_id'] ?>"><?= $row['full_name'] ?></a>
                 </h2>
