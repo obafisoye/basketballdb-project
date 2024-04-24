@@ -174,6 +174,11 @@ if (isset($_POST['delete-img']) && isset($_POST['id'])) {
     exit;
 }
 
+$queryc = "SELECT * FROM comment WHERE player_id = :idc";
+$statementc = $db->prepare($queryc);
+$statementc->bindValue(':idc', $id);
+$statementc->execute();
+
 ?>
 
 <!DOCTYPE html>
@@ -188,6 +193,29 @@ if (isset($_POST['delete-img']) && isset($_POST['id'])) {
 </head>
 
 <body>
+    <script>
+        function deleteComment(commentId) {
+            if (confirm("Are you sure you want to delete this comment?")) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "delete_comment.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        if (xhr.responseText.trim() == "success") {
+                            var commentElement = document.getElementById("comment_" + commentId);
+                            if (commentElement) {
+                                commentElement.parentNode.removeChild(commentElement);
+                            }
+                        } else {
+                            alert("Failed to delete comment.");
+                        }
+                    }
+                };
+                xhr.send("comment_id=" + commentId);
+            }
+        }
+    </script>
+
     <?php if ($validated == true) : ?>
         <header>
             <p>Basketball Player Database</p>
@@ -224,6 +252,16 @@ if (isset($_POST['delete-img']) && isset($_POST['id'])) {
                     <input id="create" type="submit" name="delete-img" value="Delete Image">
                 <?php endif ?>
             </form>
+        </div>
+        <div id="wrapper-comment-edit">
+            <?php while ($comment = $statementc->fetch()) : ?>
+                <div id="comment_<?= $comment['comment_id'] ?>">
+                    <span><?= $comment['name'] ?></span>
+                    <p><?= $comment['comment'] ?></p>
+                    <button onclick="deleteComment(<?= $comment['comment_id'] ?>)" id="create">Delete</button>
+                </div>
+
+            <?php endwhile; ?>
         </div>
     <?php else : ?>
         <h1>An error occured while processing your post</h1>
