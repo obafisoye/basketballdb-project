@@ -388,3 +388,37 @@ label {
   font-size: 30px;
   font-weight: 800;
 }
+
+.dropbtn {
+  border-radius: 5px;
+}
+
+.dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #76abae;
+  min-width: 150px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 10px 16px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+
+.dropdown-content a:hover {
+  background-color: #3c5b6f;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}

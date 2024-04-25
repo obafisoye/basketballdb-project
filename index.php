@@ -17,6 +17,9 @@ if ($_GET) {
     }
 }
 
+$query2 = "SELECT * FROM player";
+$statement2 = $db->prepare($query2);
+$statement2->execute();
 
 ?>
 
@@ -34,11 +37,17 @@ if ($_GET) {
 
 <body>
     <header>
-        <p>Basketball Player Database</p>
+        <div class="dropdown">
+            <button class="dropbtn">Basketball Player Database</button>
+            <div class="dropdown-content">
+                <?php while ($player = $statement2->fetch()) : ?>
+                    <a href="view.php?id=<?= $player['player_id'] ?>"><?= $player['full_name'] ?></a>
+                <?php endwhile; ?>
+            </div>
+        </div>
         <nav>
             <ul class="nav_links">
                 <li><a href="index.php" class="active">Home</a></li>
-                <li><a href="players.php">Players</a></li>
             </ul>
         </nav>
         <a class="cta" href="admin.php"><button>Admin</button></a>
