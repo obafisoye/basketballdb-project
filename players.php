@@ -1,6 +1,7 @@
 <?php
 
 require('connect.php');
+require('authenticate.php');
 
 $sort = "full_name";
 
@@ -50,7 +51,6 @@ $statement->execute();
                 <option value="position" <?php if ($sort === 'position') echo 'selected'; ?>>Position</option>
             </select>
         </form>
-
     </div>
     <div id="container">
         <?php while ($row = $statement->fetch()) : ?>
